@@ -26,7 +26,6 @@ describe('userRoute', () => {
 
   before(async () => {
     expect(UserModel.modelName).to.be.equal('User')
-    UserModel.collection.drop()
     const newUser = new UserModel(user)
     newUser.email = 'unique_email@email.com'
 
