@@ -13,7 +13,8 @@
     "test:mutation": "stryker run",
     "stryker:init": "stryker init",
     "dev": "cross-env PORT=3000 NODE_ENV=dev ts-node ./src/server.ts",
-    "prod": "PORT=3000 npm run build && npm run start",
+    "prod": "PORT=3000 NODE_ENV=prod npm run build && npm run start",
+    "start": "node dist/server.js",
     "tsc": "tsc"
   },
   "engines": {
