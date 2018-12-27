@@ -13,7 +13,8 @@ class App {
   public userRoutes: UserRoute = new UserRoute()
   public apiRoutes: APIRoute = new APIRoute()
   public orderRoutes: OrderRoute = new OrderRoute()
-  public mongoUrl: string = 'mongodb://localhost/order-api'
+  public mongoUrl: string = `mongodb://${process.env
+    .MONGODB_PORT_27017_TCP_ADDR || 'localhost'}:27017/order-api`
 
   constructor() {
     this.app = express()
