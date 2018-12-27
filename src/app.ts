@@ -13,8 +13,10 @@ class App {
   public userRoutes: UserRoute = new UserRoute()
   public apiRoutes: APIRoute = new APIRoute()
   public orderRoutes: OrderRoute = new OrderRoute()
-  public mongoUrl: string = `mongodb://${process.env
-    .MONGODB_PORT_27017_TCP_ADDR || 'localhost'}:27017/order-api`
+  public mongoUrl: string = `mongodb://${process.env.MONGODB_URL_PORT ||
+    'localhost:27017'}/order-api`
+  public mongoUser: string = `${process.env.MONGODB_USER || ''}`
+  public mongoPass: string = `${process.env.MONGODB_PASS || ''}`
 
   constructor() {
     this.app = express()
@@ -34,9 +36,14 @@ class App {
   }
 
   private mongoSetup(): void {
+    const options = {
+      user: this.mongoUser,
+      pass: this.mongoPass,
+      useNewUrlParser: true,
+    }
     mongoose.connect(
       this.mongoUrl,
-      { useNewUrlParser: true }
+      options
     )
   }
 }

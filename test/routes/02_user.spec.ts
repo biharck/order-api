@@ -16,7 +16,7 @@ describe('userRoute', () => {
     username: 'John',
     firstName: 'John',
     lastName: 'Doe',
-    email: 'John@myemail.com',
+    email: 'John@memail.com',
     password: 'password',
     phone: '5555555',
     userStatus: 1,
@@ -26,8 +26,8 @@ describe('userRoute', () => {
 
   before(async () => {
     expect(UserModel.modelName).to.be.equal('User')
-    // UserModel.collection.drop();
     const newUser = new UserModel(user)
+    newUser.email = 'unique_email@email.com'
 
     newUser.password = bcrypt.hashSync(newUser.password, 10)
 
