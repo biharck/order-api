@@ -41,12 +41,12 @@ class App {
 
     if (process.env.MONGODB_URL_PORT === 'localhost:27017') {
       options = {
-        user: this.mongoUser,
-        pass: this.mongoPass,
         useNewUrlParser: true,
       }
     } else {
       options = {
+        user: this.mongoUser,
+        pass: this.mongoPass,
         useNewUrlParser: true,
       }
     }
