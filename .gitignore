@@ -9,3 +9,4 @@ launch.json
 *.pem
 *.log
 keys.json
+gce.json
