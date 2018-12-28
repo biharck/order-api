@@ -32,7 +32,9 @@ describe('userRoute', () => {
 
     newUser.password = bcrypt.hashSync(newUser.password, 10)
 
-    OrderAPILogger.logger.info('calling save')
+    OrderAPILogger.logger.info(
+      'calling save to create a default user for loging'
+    )
     await newUser.save().then(async userCreated => {
       OrderAPILogger.logger.info('creating the default user')
       user._id = userCreated._id
