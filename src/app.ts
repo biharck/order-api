@@ -14,7 +14,7 @@ class App {
   public apiRoutes: APIRoute = new APIRoute()
   public orderRoutes: OrderRoute = new OrderRoute()
   public mongoUrl: string = `mongodb://${process.env.MONGODB_URL_PORT ||
-    'localhost:27017'}/order-api`
+    'localhost:27017'}/${process.env.MONGODB_DATABASE}`
   public mongoUser: string = `${process.env.MONGODB_USER || ''}`
   public mongoPass: string = `${process.env.MONGODB_PASS || ''}`
 

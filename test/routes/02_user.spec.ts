@@ -25,18 +25,24 @@ describe('userRoute', () => {
 
   let token
 
-  before(async () => {
-    expect(UserModel.modelName).to.be.equal('User')
-    const newUser = new UserModel(user)
-    newUser.email = 'unique_email@email.com'
+  before(() => {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        expect(UserModel.modelName).to.be.equal('User')
+        UserModel.collection.drop()
+        const newUser = new UserModel(user)
+        newUser.email = 'unique_email@email.com'
 
-    newUser.password = bcrypt.hashSync(newUser.password, 10)
+        newUser.password = bcrypt.hashSync(newUser.password, 10)
 
-    await newUser.save((error, userCreated) => {
-      if (error) {
-        OrderAPILogger.logger.error(error)
-      }
-      user._id = userCreated._id
+        newUser.save((error, userCreated) => {
+          if (error) {
+            OrderAPILogger.logger.error(error)
+          }
+          user._id = userCreated._id
+        })
+        resolve()
+      }, 200)
     })
   })
 

@@ -24,6 +24,7 @@ describe('userRoute', () => {
 
   before(async () => {
     expect(OrderModel.modelName).to.be.equal('Order')
+    OrderModel.collection.drop()
   })
 
   it('should be able to login and get the token to be used on orders requests', async () => {
