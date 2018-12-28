@@ -25,28 +25,45 @@ describe('userRoute', () => {
 
   let token
 
-  before(() => {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        expect(UserModel.modelName).to.be.equal('User')
-        UserModel.collection.drop()
-        const newUser = new UserModel(user)
-        newUser.email = 'unique_email@email.com'
+  before(async () => {
+    expect(UserModel.modelName).to.be.equal('User')
+    const newUser = new UserModel(user)
+    newUser.email = 'unique_email@email.com'
 
-        newUser.password = bcrypt.hashSync(newUser.password, 10)
+    newUser.password = bcrypt.hashSync(newUser.password, 10)
 
-        newUser.save((error, userCreated) => {
-          if (error) {
-            OrderAPILogger.logger.error(error)
-          }
-          user._id = userCreated._id
-        })
-        resolve()
-      }, 200)
+    await newUser.save((error, userCreated) => {
+      if (error) {
+        OrderAPILogger.logger.error(error)
+      }
+      OrderAPILogger.logger.info('creating the default user')
+      user._id = userCreated._id
     })
   })
 
+  // before(() => {
+  //   return new Promise(resolve => {
+  //     setTimeout(() => {
+  //       expect(UserModel.modelName).to.be.equal('User')
+  //       UserModel.collection.drop()
+  //       const newUser = new UserModel(user)
+  //       newUser.email = 'unique_email@email.com'
+
+  //       newUser.password = bcrypt.hashSync(newUser.password, 10)
+
+  //       newUser.save((error, userCreated) => {
+  //         if (error) {
+  //           OrderAPILogger.logger.error(error)
+  //         }
+  //         user._id = userCreated._id
+  //       })
+  //       resolve()
+  //     }, 200)
+  //   })
+  // })
+
   it('should be able to login', async () => {
+    OrderAPILogger.logger.info('getting the login')
     return chai
       .request(app)
       .get(`/users/login?username=${user.username}&password=${user.password}`)
