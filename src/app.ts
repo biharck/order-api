@@ -39,7 +39,7 @@ class App {
   private mongoSetup(): void {
     let options
 
-    if (process.env.MONGODB_URL_PORT === 'localhost') {
+    if (process.env.MONGODB_URL_PORT === 'localhost:27017') {
       options = {
         user: this.mongoUser,
         pass: this.mongoPass,
