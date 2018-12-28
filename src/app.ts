@@ -37,16 +37,25 @@ class App {
   }
 
   private mongoSetup(): void {
-    const options = {
-      user: this.mongoUser,
-      pass: this.mongoPass,
-      useNewUrlParser: true,
+    let options
+
+    if (process.env.MONGODB_URL_PORT === 'localhost') {
+      options = {
+        user: this.mongoUser,
+        pass: this.mongoPass,
+        useNewUrlParser: true,
+      }
+    } else {
+      options = {
+        useNewUrlParser: true,
+      }
     }
     mongoose.connect(
       this.mongoUrl,
       options
     )
-    OrderAPILogger.logger.info(`options = ${options}`)
+    OrderAPILogger.logger.info(`options = ${options.user}`)
+    OrderAPILogger.logger.info(`options = ${options.pass}`)
     OrderAPILogger.logger.info(`url = ${this.mongoUrl}`)
   }
 }
