@@ -5,6 +5,7 @@ import chaiHttp = require('chai-http')
 import 'mocha'
 import app from '../../src/app'
 import { UserModel } from '../../src/schemas/user'
+import { OrderAPILogger } from '../../src/utility/logger'
 
 chai.use(chaiHttp)
 
@@ -32,6 +33,9 @@ describe('userRoute', () => {
     newUser.password = bcrypt.hashSync(newUser.password, 10)
 
     await newUser.save((error, userCreated) => {
+      if (error) {
+        OrderAPILogger.logger.error(error)
+      }
       user._id = userCreated._id
     })
   })
