@@ -32,40 +32,14 @@ describe('userRoute', () => {
 
     newUser.password = bcrypt.hashSync(newUser.password, 10)
 
-    OrderAPILogger.logger.info('calling save')
-    await newUser.save().then(async userCreated => {
+    await newUser.save(async (error, userCreated) => {
+      if (error) {
+        OrderAPILogger.logger.error(error)
+      }
       OrderAPILogger.logger.info('creating the default user')
       user._id = userCreated._id
     })
-    // await newUser.save((error, userCreated) => {
-    //   if (error) {
-    //     OrderAPILogger.logger.error(error)
-    //   }
-    //   OrderAPILogger.logger.info('creating the default user')
-    //   user._id = userCreated._id
-    // })
   })
-
-  // before(() => {
-  //   return new Promise(resolve => {
-  //     setTimeout(() => {
-  //       expect(UserModel.modelName).to.be.equal('User')
-  //       UserModel.collection.drop()
-  //       const newUser = new UserModel(user)
-  //       newUser.email = 'unique_email@email.com'
-
-  //       newUser.password = bcrypt.hashSync(newUser.password, 10)
-
-  //       newUser.save((error, userCreated) => {
-  //         if (error) {
-  //           OrderAPILogger.logger.error(error)
-  //         }
-  //         user._id = userCreated._id
-  //       })
-  //       resolve()
-  //     }, 200)
-  //   })
-  // })
 
   it('should be able to login', async () => {
     OrderAPILogger.logger.info('getting the login')
