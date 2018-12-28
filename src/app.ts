@@ -7,6 +7,7 @@ import { APIRoute } from './routes/api'
 import { OrderRoute } from './routes/order'
 import { UserRoute } from './routes/user'
 import * as errorHandler from './utility/errorHandler'
+import { OrderAPILogger } from './utility/logger'
 
 class App {
   public app: express.Application
@@ -45,6 +46,8 @@ class App {
       this.mongoUrl,
       options
     )
+    OrderAPILogger.logger.info(`options = ${options}`)
+    OrderAPILogger.logger.info(`url = ${this.mongoUrl}`)
   }
 }
 
