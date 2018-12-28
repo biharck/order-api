@@ -32,13 +32,18 @@ describe('userRoute', () => {
 
     newUser.password = bcrypt.hashSync(newUser.password, 10)
 
-    await newUser.save((error, userCreated) => {
-      if (error) {
-        OrderAPILogger.logger.error(error)
-      }
+    OrderAPILogger.logger.info('calling save')
+    await newUser.save().then(async userCreated => {
       OrderAPILogger.logger.info('creating the default user')
       user._id = userCreated._id
     })
+    // await newUser.save((error, userCreated) => {
+    //   if (error) {
+    //     OrderAPILogger.logger.error(error)
+    //   }
+    //   OrderAPILogger.logger.info('creating the default user')
+    //   user._id = userCreated._id
+    // })
   })
 
   // before(() => {
