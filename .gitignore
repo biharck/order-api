@@ -10,3 +10,5 @@ launch.json
 *.log
 keys.json
 gce.json
+*.env
+*.prod
